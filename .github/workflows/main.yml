@@ -24,6 +24,9 @@ jobs:
         with:
           channel: stable
 
+      - name: Atualizar estrutura Android
+        run: flutter create --platforms=android .
+
       - name: Baixar dependencias
         run: flutter pub get
 
