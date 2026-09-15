@@ -377,9 +377,31 @@ class _GeopastoHomeState extends State<GeopastoHome> {
         Text('Piquetes cadastrados', style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold)),
         Text('Pastagem utilizada: ${unit.format(pastureAreaM2)}'),
         const SizedBox(height: 12),
-        if (paddocks.isEmpty) const Card(child: Padding(padding: EdgeInsets.all(20), child: Text('Nenhum piquete cadastrado. Abra o mapa e desenhe o primeiro piquete.'))),
-        ...paddocks.asMap().entries.map((e) => Card(child: ListTile(leading: CircleAvatar(child: Text(e.value.name)), title: Text('${e.value.name} · ${unit.format(e.value.areaM2)}'), subtitle: Text('${e.value.points.length} pontos georreferenciados'), trailing: IconButton(icon: const Icon(Icons.delete_outline), onPressed: () { setState(() => paddocks.removeAt(e.key)); _save(); }))),
-      ]);
+        if (paddocks.isEmpty)
+  const Card(
+    child: Padding(
+      padding: EdgeInsets.all(20),
+      child: Text('Nenhum piquete cadastrado. Abra o mapa e desenhe o primeiro piquete.'),
+    ),
+  )
+else
+  ...paddocks.asMap().entries.map(
+    (e) => Card(
+      child: ListTile(
+        leading: CircleAvatar(child: Text(e.value.name)),
+        title: Text('${e.value.name} · ${unit.format(e.value.areaM2)}'),
+        subtitle: Text('${e.value.points.length} pontos georreferenciados'),
+        trailing: IconButton(
+          icon: const Icon(Icons.delete_outline),
+          onPressed: () {
+            setState(() => paddocks.removeAt(e.key));
+            _save();
+          },
+        ),
+      ),
+    ),
+  ),
+]);
 
   Widget _biomass() => ListView(padding: const EdgeInsets.all(16), children: [
         Text('Massa vegetal', style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold)),
